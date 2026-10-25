@@ -21,9 +21,11 @@ readonly SCAFFOLD_FILES=(
   app/__init__.py
   app/__main__.py
   app/errors.py
+  app/logger.py
   tests/__init__.py
   tests/conftest.py
   tests/test_errors.py
+  tests/test_logger.py
   tests/test_main.py
 )
 readonly APPENDED_MARKER="<!-- appended by scaffold bootstrap -->"
