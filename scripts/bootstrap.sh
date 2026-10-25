@@ -18,6 +18,7 @@ readonly SCAFFOLD_FILES=(
   uv.lock
   Makefile
   CLAUDE.md
+  CONTRIBUTING.md
   src/app/__init__.py
   src/app/__main__.py
   src/app/cli.py

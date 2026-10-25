@@ -24,3 +24,7 @@ make install       # uv sync: creates .venv with Python 3.12 and installs the ap
 | `make help`      | List all commands                         |
 
 `make check` must pass before every commit.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, the change workflow, and code standards.
