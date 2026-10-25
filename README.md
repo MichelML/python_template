@@ -7,22 +7,20 @@ A small, clean Python 3.12+ project. See `CLAUDE.md` for design and style guidel
 Environments are managed with [uv](https://docs.astral.sh/uv/):
 
 ```sh
-uv sync            # creates .venv with Python 3.12 and installs the app + dev tools
+make install       # uv sync: creates .venv with Python 3.12 and installs the app + dev tools
 ```
 
-## Run
+## Commands
 
-```sh
-uv run python -m app
-```
+| Command          | What it does                              |
+|------------------|-------------------------------------------|
+| `make run`       | Run the app (`uv run python -m app`)      |
+| `make test`      | Run the tests (`uv run pytest -q`)        |
+| `make format`    | Format with ruff                          |
+| `make lint`      | Lint with ruff and apply safe fixes       |
+| `make typecheck` | Typecheck with mypy (strict)              |
+| `make check`     | Format, lint, typecheck, and test         |
+| `make clean`     | Remove tool caches                        |
+| `make help`      | List all commands                         |
 
-## Checks
-
-All of these must pass before every commit:
-
-```sh
-uv run ruff format .
-uv run ruff check --fix .
-uv run mypy
-uv run pytest -q
-```
+`make check` must pass before every commit.
