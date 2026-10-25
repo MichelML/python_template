@@ -1,6 +1,13 @@
-# app
+# template <!-- omit in toc -->
 
-A small, clean Python 3.12+ project. See `CLAUDE.md` for design and style guidelines.
+A small, clean Python 3.12+ project template. See `CLAUDE.md` for design and style guidelines.
+
+## Table of content <!-- omit in toc -->
+
+- [Setup](#setup)
+- [Commands](#commands)
+- [Contributing](#contributing)
+
 
 ## Setup
 
