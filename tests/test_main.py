@@ -1,8 +1,10 @@
-import pytest
+import subprocess
+import sys
 
-from app.__main__ import EXIT_OK, main
 
+def test_python_dash_m_app_runs_the_cli() -> None:
+    result = subprocess.run(
+        [sys.executable, "-m", "app"], capture_output=True, text=True, check=True
+    )
 
-def test_main_exits_successfully(capsys: pytest.CaptureFixture[str]) -> None:
-    assert main() == EXIT_OK
-    assert capsys.readouterr().out.strip() == "app is ready"
+    assert result.stdout == "app is ready\n"

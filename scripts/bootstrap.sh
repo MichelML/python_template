@@ -18,11 +18,13 @@ readonly SCAFFOLD_FILES=(
   uv.lock
   Makefile
   CLAUDE.md
-  app/__init__.py
-  app/__main__.py
-  app/errors.py
-  app/logger.py
+  src/app/__init__.py
+  src/app/__main__.py
+  src/app/cli.py
+  src/app/errors.py
+  src/app/logger.py
   tests/__init__.py
+  tests/test_cli.py
   tests/conftest.py
   tests/test_errors.py
   tests/test_logger.py
