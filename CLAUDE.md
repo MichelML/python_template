@@ -82,5 +82,7 @@ extend: something a careful reviewer would approve without changes.
   explain the "why", not just the "what".
 
 ## Git
-- Commit after each working step with a short, imperative message ("Add order validation").
-- Keep the working tree clean, with ruff, mypy, and tests all green before pushing.
+- Never commit or push on your own initiative. The user will always say when to commit and when to
+  push; until then, leave changes uncommitted.
+- When asked to commit, use a short, imperative message ("Add order validation").
+- Ruff, mypy, and tests must all be green before any commit or push.
