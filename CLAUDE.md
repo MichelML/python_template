@@ -33,8 +33,8 @@ extend: something a careful reviewer would approve without changes.
   - Add dependencies with `uv add <pkg>` (runtime) or `uv add --dev <pkg>` (dev); commit `uv.lock`.
 - Format and lint with ruff, typecheck with mypy (strict). Config lives in `pyproject.toml`.
 - The `Makefile` wraps the common commands (`make help` lists them): `make install`, `make run`,
-  `make test`, `make format`, `make lint`, `make typecheck`, and `make check` (format, lint, typecheck).
-- Before every commit, all of these must pass (`make check test` runs them in order):
+  `make test`, `make format`, `make lint`, `make typecheck`, and `make check` for all checks.
+- Before every commit, all of these must pass (`make check` runs them in order):
   ```
   uv run ruff format .
   uv run ruff check --fix .

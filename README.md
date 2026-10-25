@@ -19,8 +19,8 @@ make install       # uv sync: creates .venv with Python 3.12 and installs the ap
 | `make format`    | Format with ruff                          |
 | `make lint`      | Lint with ruff and apply safe fixes       |
 | `make typecheck` | Typecheck with mypy (strict)              |
-| `make check`     | Format, lint, and typecheck               |
+| `make check`     | Format, lint, typecheck, and test         |
 | `make clean`     | Remove tool caches                        |
 | `make help`      | List all commands                         |
 
-`make check test` must pass before every commit.
+`make check` must pass before every commit.
