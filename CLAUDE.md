@@ -21,7 +21,9 @@ extend: something a careful reviewer would approve without changes.
 ## Python style
 - Python 3.12+, standard library only unless a dependency is clearly justified.
 - Full type hints on every function and method signature. Avoid `Any`.
-- Descriptive names over comments. Short docstrings on public classes and non-obvious methods only.
+- Descriptive names first; add a brief comment on any complex or non-obvious section (an algorithm
+  choice, a tricky edge case, a business rule). Short docstrings on public classes and non-obvious
+  methods only.
 - No global state, no magic strings or numbers (use constants or enums), no nested classes.
   Exceptions: the shared `logger` in `src/app/logger.py` and the `api = FastAPI()` object in
   `src/app/api.py`.
