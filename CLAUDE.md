@@ -25,8 +25,7 @@ extend: something a careful reviewer would approve without changes.
   choice, a tricky edge case, a business rule). Short docstrings on public classes and non-obvious
   methods only.
 - No global state, no magic strings or numbers (use constants or enums), no nested classes.
-  Exceptions: the shared `logger` in `src/app/logger.py` and the `api = FastAPI()` object in
-  `src/app/api.py`.
+  Exception: the `api = FastAPI()` object in `src/app/api.py`.
 - Keep functions short and focused, with early returns over deep nesting.
 
 ## Tooling
@@ -73,7 +72,6 @@ src/app/
   service.py      # use cases: one public method per operation the problem asks for
   repository.py   # storage Protocol + in-memory implementation (only if state is stored)
   errors.py       # AppError hierarchy
-  logger.py       # shared logger: `from app.logger import logger`
   cli.py          # CLI adapter: argparse, `main(argv) -> exit code`
   api.py          # HTTP adapter (only if asked)
   __main__.py     # `python -m app` → `cli.main()`
