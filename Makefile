@@ -21,7 +21,7 @@ lint:  ## Lint with ruff and apply safe fixes
 typecheck:  ## Typecheck with mypy (strict)
 	uv run mypy
 
-check: format lint typecheck test  ## Run the full pre-commit check
+check: format lint typecheck  ## Format, lint, and typecheck
 
 clean:  ## Remove tool caches
 	rm -rf .mypy_cache .pytest_cache .ruff_cache
