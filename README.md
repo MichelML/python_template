@@ -15,6 +15,7 @@ Environments are managed with [uv](https://docs.astral.sh/uv/):
 
 ```sh
 make install       # uv sync: creates .venv with Python 3.12 and installs the app + dev tools
+source .venv/bin/activate
 ```
 
 ## Commands
