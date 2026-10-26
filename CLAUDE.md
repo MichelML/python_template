@@ -57,9 +57,13 @@ extend: something a careful reviewer would approve without changes.
 ## Project layout
 - If a starter repo is provided, its language, layout, and conventions take precedence over this
   section and "Tooling".
-- Package code in `src/app/` (src layout), tests in `tests/` mirroring module names
-  (`src/app/orders.py` → `tests/test_orders.py`). Tests import the installed package
+- Package code in `src/app/` (src layout), tests in `tests/`. Tests import the installed package
   (`from app.orders import ...`), never `src.`.
+- The `tests/` tree mirrors `src/` exactly: every directory under `src/` has a matching directory
+  (with an `__init__.py`) under `tests/`, and every module `src/<path>/<name>.py` is tested in
+  `tests/<path>/test_<name>.py` (dunders stripped: `__main__.py` → `test_main.py`). Examples:
+  `src/app/orders.py` → `tests/app/test_orders.py`, `src/app/billing/invoices.py` →
+  `tests/app/billing/test_invoices.py`. When a module moves or is renamed, move its tests too.
 - Shared test fixtures go in `tests/conftest.py`.
 
 ## Architecture: pure core, thin adapters
@@ -72,13 +76,18 @@ src/app/
   service.py      # use cases: one public method per operation the problem asks for
   repository.py   # storage Protocol + in-memory implementation (only if state is stored)
   errors.py       # AppError hierarchy
-  cli.py          # CLI adapter: argparse, `main(argv) -> exit code`
+  cli.py          # CLI adapter (only if needed): argparse, `main(argv) -> exit code`
   api.py          # HTTP adapter (only if asked)
-  __main__.py     # `python -m app` → `cli.main()`
+  __main__.py     # `python -m app` → the default client's `main()`
 ```
 
 - Create `models.py`, `service.py`, and `repository.py` once the domain is known; no empty
   placeholder modules. Split into one module per core class if they grow.
+- One module per client (way in): `cli.py`, `api.py`, and e.g. a stdin or file reader each get
+  their own file. Adapters never import each other.
+- `__main__.py` only delegates: it imports the default client's `main` and calls it, with no
+  parsing, output, or error handling of its own. Until a client exists it holds a minimal
+  `main()` that prints "app is ready"; replace it with the delegating import when adding one.
 - Adapters (`cli.py`, `api.py`, `__main__.py`) are the only modules that do I/O. Each one: parses
   input into models, calls the service, formats the output, and maps `AppError` to an exit code or
   HTTP status.
@@ -87,8 +96,9 @@ src/app/
 
 ### Recipes by problem shape
 - **Pure logic** ("implement a cart with discounts"): models + service + tests. A CLI is optional.
-- **CLI**: add subcommands in `cli.py` with `add_subparsers(dest="command", required=True)`, one
-  small handler per command. `run(args)` dispatches; `main` handles `AppError` → `EXIT_ERROR`.
+- **CLI**: create `cli.py` (tested in `tests/app/test_cli.py`), point `__main__.py` and the `app`
+  script in `pyproject.toml` at `app.cli:main`, and add subcommands with
+  `add_subparsers(dest="command", required=True)`, one small handler per command. `run(args)` dispatches; `main` handles `AppError` → `EXIT_ERROR`.
 - **stdin / line-based input**: the adapter reads `sys.stdin` and passes text to a pure
   `parse_*(text) -> model` function; the core never touches streams.
 - **File input (CSV/JSON)**: stdlib `csv` / `json`. `parse_*` functions take text (not paths) and
@@ -122,7 +132,7 @@ src/app/
   happy path and one key edge case, then add the rest as time allows.
 - Test behavior through public interfaces, not implementation details.
 - Most tests target the service (fast, pure, no I/O). Adapters get a few thin tests each: CLI via
-  `main([...])` + `capsys`, API via `TestClient`. Only `tests/test_main.py` runs a subprocess.
+  `main([...])` + `capsys`, API via `TestClient`. Only `tests/app/test_main.py` runs a subprocess.
 - After every change, run the full check (`uv run` ruff, mypy, pytest). Everything must pass before moving on.
 
 ## Workflow
