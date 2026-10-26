@@ -26,10 +26,11 @@ virtual environments by hand.
 
 ## Code standards (summary)
 
-- Code lives in `src/app/`; tests live in `tests/`, mirroring module names
-  (`src/app/orders.py` → `tests/test_orders.py`).
-- Keep the domain pure (no I/O); only the adapters (`cli.py`, `api.py`, `__main__.py`) read input or
-  write output.
+- Code lives in `src/app/`; the `tests/` tree mirrors `src/` exactly
+  (`src/app/orders.py` → `tests/app/test_orders.py`).
+- Keep the domain pure (no I/O); only the adapters (`__main__.py`, plus `cli.py` or `api.py` when
+  added) read input or write output. One module per client; `__main__.py` delegates to the default
+  one.
 - Full type hints, strict mypy, no `Any`. Fix lint and type errors instead of silencing them.
 - Raise specific `AppError` subclasses (see `src/app/errors.py`), never bare `except`.
 - Tests use plain `assert`, one behavior per test, with descriptive names. Cover the happy path,

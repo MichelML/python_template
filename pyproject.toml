@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = []
 
 [project.scripts]
-app = "app.cli:main"
+app = "app.__main__:main"
 
 [dependency-groups]
 api = [
