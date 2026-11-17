@@ -3,6 +3,28 @@
 A small, clean Python project. The goal is code that is correct, readable, well-tested, and easy to
 extend: something a careful reviewer would approve without changes.
 
+## Existing codebase first (takes precedence)
+When the task starts from an existing codebase (e.g. a CodeSignal exercise with a problem brief),
+this section overrides "Design", "Tooling", "Project layout", and "Architecture" wherever they conflict.
+
+- Explore before editing: read the brief, README, and tests; run the existing tests for a baseline;
+  find the entry point and trace one call path. Summarize the structure in a few bullets (key
+  modules, data flow, where the change goes) before proposing code.
+- Match the codebase: its layout, naming, error handling, test style, and Python version. Don't
+  introduce uv, src layout, strict mypy, new architecture layers, or dependencies. Use only the
+  tools already there (e.g. `python -m pytest`); if a tool is missing, skip it and say so.
+- Make minimal, targeted diffs. No refactors, renames, or reformatting outside the change. If a
+  refactor would help, propose it and wait for a yes.
+- Work part by part: the brief may have more parts than time allows. Finish and test one part before
+  starting the next; a working, tested part 1 beats a half-done part 3.
+- Before each change, state the plan and its tradeoff in 1-3 bullets. After it, say what changed,
+  how it was tested, and anything uncertain. The user must be able to explain every line to the
+  interviewer: no clever tricks, and flag assumptions and edge cases instead of silently choosing.
+- If existing code looks buggy or the brief is ambiguous, point it out and ask before acting; it
+  may be part of the exercise.
+- Add or update tests for each change in the existing test style; run the relevant tests after each
+  change, then the full suite.
+
 ## Design
 - Understand the problem first. Surface ambiguities and state assumptions before writing code.
 - Model the domain explicitly: small classes with one clear responsibility each.
